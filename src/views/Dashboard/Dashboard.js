@@ -238,6 +238,24 @@ export default function Dashboard() {
             ]}
           />
         </GridItem> */}
+        <GridItem xs={12} sm={6} md={3}>
+          <h5>Activities</h5>
+          <Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Accessibility />
+              </CardIcon>
+              <p className={classes.cardCategory}>No of Created Deals</p>
+              <h3 className={classes.cardTitle}>5000</h3>
+            </CardHeader>
+            {/* <CardFooter stats> */}
+              {/* <div className={classes.stats}>
+                <Update />
+                Just Updated
+              </div> */}
+            {/* </CardFooter> */}
+          </Card>
+        </GridItem>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
