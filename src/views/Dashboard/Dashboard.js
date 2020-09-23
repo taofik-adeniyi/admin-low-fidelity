@@ -31,6 +31,8 @@ import CardFooter from "components/Card/CardFooter.js";
 
 import { bugs, website, server } from "variables/general.js";
 
+import Grid from '@material-ui/core/Grid';
+
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -122,6 +124,7 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
+      
       {/* <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
@@ -196,6 +199,46 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer> */}
+
+        <Grid container spacing={3}>
+          <Grid item xs={3}>
+            <h5>Activities</h5>
+            <Card>
+              <CardHeader color="info" stats icon>
+                <CardIcon color="info">
+                  <Accessibility />
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Pinned Deals</p>
+                <h3 className={classes.cardTitle}>3000</h3>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader color="info" stats icon>
+                <CardIcon color="info">
+                  <Accessibility />
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Claimed Deals</p>
+                <h3 className={classes.cardTitle}>3500</h3>
+              </CardHeader>
+            </Card>
+          </Grid>
+          <Grid item xs={9}>
+            <h5>Transactions</h5>
+            <Card>
+            <CardBody>
+              <Table
+                tableHeaderColor="warning"
+                tableHead={["ID", "Name", "Salary", "Country"]}
+                tableData={[
+                  ["1", "Dakota Rice", "$36,738", "Niger"],
+                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
+                ]}
+              />
+            </CardBody>
+            </Card>
+          </Grid>
+        </Grid>
+
       <GridContainer>
         {/* <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
@@ -238,24 +281,8 @@ export default function Dashboard() {
             ]}
           />
         </GridItem> */}
-        <GridItem xs={12} sm={6} md={3}>
-          <h5>Activities</h5>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Created Deals</p>
-              <h3 className={classes.cardTitle}>5000</h3>
-            </CardHeader>
-            {/* <CardFooter stats> */}
-              {/* <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div> */}
-            {/* </CardFooter> */}
-          </Card>
-        </GridItem>
+        
+        
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
