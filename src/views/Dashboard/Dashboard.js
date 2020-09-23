@@ -201,7 +201,7 @@ export default function Dashboard() {
       </GridContainer> */}
 
         <Grid container spacing={3}>
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={12} md={3}>
             <h5>Activities</h5>
             <Card>
               <CardHeader color="info" stats icon>
@@ -222,7 +222,7 @@ export default function Dashboard() {
               </CardHeader>
             </Card>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} sm={12} md={9}>
             <h5>Transactions</h5>
             <Card chart>
             <CardHeader color="success">
