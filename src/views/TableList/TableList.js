@@ -149,7 +149,7 @@ export default function TableList() {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+                Wine Coloured Sneaker
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 Description: Blue Shoes<br/>
@@ -160,10 +160,10 @@ export default function TableList() {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              Share
+              Approve
             </Button>
             <Button size="small" color="primary">
-              Learn More
+              Decline
             </Button>
           </CardActions>
         </Card>
@@ -180,7 +180,7 @@ export default function TableList() {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+                Sneaker 2
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 Description: Blue Shoes<br/>
@@ -191,10 +191,10 @@ export default function TableList() {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              Share
+              Approve
             </Button>
             <Button size="small" color="primary">
-              Learn More
+              Decline
             </Button>
           </CardActions>
         </Card>
@@ -211,7 +211,7 @@ export default function TableList() {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+                Sneaker 3
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 Description: Blue Shoes<br/>
@@ -222,10 +222,10 @@ export default function TableList() {
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              Share
+              Approve
             </Button>
             <Button size="small" color="primary">
-              Learn More
+              Decline
             </Button>
           </CardActions>
         </Card>
