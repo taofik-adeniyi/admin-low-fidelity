@@ -13,7 +13,20 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
+import CardFooter from "components/Card/CardFooter.js";
+import CardIcon from "components/Card/CardIcon.js";
+import Accessibility from "@material-ui/icons/Accessibility";
+import ChartistGraph from "react-chartist";
+import ArrowUpward from "@material-ui/icons/ArrowUpward";
+import Table from "components/Table/Table.js";
 
+import Grid from '@material-ui/core/Grid';
+import {
+  dailySalesChart,
+  emailsSubscriptionChart,
+  completedTasksChart
+} from "variables/charts.js";
 const styles = {
   typo: {
     paddingLeft: "25%",
@@ -56,9 +69,200 @@ const useStyles = makeStyles(styles);
 export default function TypographyPage() {
   const classes = useStyles();
   return (
+    <div>
     <GridContainer>
-
+      <GridItem xs={12} sm={6} md={3}>
+        <Card>
+          <CardHeader color="warning" stats>
+            <h4 className={classes.cardCategory}>Total Merchants</h4>
+            <h3 className={classes.cardTitle}>
+              2500 
+            </h3>
+          </CardHeader>
+          <CardFooter stats />
+        </Card>
+      </GridItem>
+          
+      <GridItem xs={12} sm={6} md={3}>
+        <Card>
+          <CardHeader color="warning" stats>
+            <h4 className={classes.cardCategory}>Active Merchants</h4>
+            <h3 className={classes.cardTitle}>
+              500 
+            </h3>
+          </CardHeader>
+          <CardFooter stats />
+        </Card>
+      </GridItem>
+          
+      <GridItem xs={12} sm={6} md={3}>
+        <Card>
+          <CardHeader color="warning" stats>
+            <h4 className={classes.cardCategory}>Inactive Merchants</h4>
+            <h3 className={classes.cardTitle}>
+              25 
+            </h3>
+          </CardHeader>
+          <CardFooter stats />
+        </Card>
+      </GridItem>
     </GridContainer>
+    <Grid container spacing={3}>
+      <Grid item xs={12} sm={12} md={4}>
+        <h5>Merchant % Drop off</h5>
+        <Card chart>
+        <CardHeader color="success">
+          <ChartistGraph
+            className="ct-chart"
+            data={dailySalesChart.data}
+            type="Line"
+            options={dailySalesChart.options}
+            listener={dailySalesChart.animation}
+          />
+        </CardHeader>
+        <CardBody>
+          {/* <h4 className={classes.cardTitle}>9% Drop off</h4> */}
+          <p className={classes.cardCategory}>
+            <span className={classes.successText}>
+              <ArrowUpward className={classes.upArrowCardCategory} /> 9%
+            </span>{" "}
+            Drop Off
+          </p>
+        </CardBody>
+        {/* <CardFooter chart>
+          <div className={classes.stats}>
+            <AccessTime /> updated 4 minutes ago
+          </div>
+        </CardFooter> */}
+      </Card>
+      </Grid>
+      <Grid item xs={12} sm={12} md={4}>
+        <h5>Total Revenue</h5>
+        <Card chart>
+        <CardHeader color="success">
+          <ChartistGraph
+            className="ct-chart"
+            data={dailySalesChart.data}
+            type="Line"
+            options={dailySalesChart.options}
+            listener={dailySalesChart.animation}
+          />
+        </CardHeader>
+        <CardBody>
+          {/* <h4 className={classes.cardTitle}>9% Drop off</h4> */}
+          <p className={classes.cardCategory}>
+            <span className={classes.successText}>
+              <ArrowUpward className={classes.upArrowCardCategory} /> $50,000
+            </span>{" "}
+            {/* Drop Off */}
+          </p>
+        </CardBody>
+        {/* <CardFooter chart>
+          <div className={classes.stats}>
+            <AccessTime /> updated 4 minutes ago
+          </div>
+        </CardFooter> */}
+      </Card>
+      </Grid><Grid item xs={12} sm={12} md={4}>
+        <h5>Total Deals</h5>
+        <Card chart>
+        <CardHeader color="success">
+          <ChartistGraph
+            className="ct-chart"
+            data={dailySalesChart.data}
+            type="Line"
+            options={dailySalesChart.options}
+            listener={dailySalesChart.animation}
+          />
+        </CardHeader>
+        <CardBody>
+          {/* <h4 className={classes.cardTitle}>9% Drop off</h4> */}
+          <p className={classes.cardCategory}>
+            <span className={classes.successText}>
+              <ArrowUpward className={classes.upArrowCardCategory} /> 10,000 Deals
+            </span>{" "}
+            {/* Drop Off */}
+          </p>
+        </CardBody>
+        {/* <CardFooter chart>
+          <div className={classes.stats}>
+            <AccessTime /> updated 4 minutes ago
+          </div>
+        </CardFooter> */}
+      </Card>
+      </Grid>
+    </Grid>
+
+    <Grid container spacing={3}>
+          <Grid item xs={12} sm={12} md={3}>
+            <h5>Create Mall</h5>
+            <Card>
+               
+              <p>Name:</p>
+              <p>Location:</p>
+              <p>About:</p> 
+              {/* <CardHeader color="info" stats >
+                <CardIcon color="info">
+                  <Accessibility />
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Pinned Deals</p>
+                <h3 className={classes.cardTitle}>3000</h3>
+              </CardHeader> */}
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={12} md={9}>
+            <h5>All Merchants</h5>
+            {/* <Card chart> */}
+            {/* <CardHeader color="success">
+              <ChartistGraph
+                className="ct-chart"
+                data={dailySalesChart.data}
+                type="Line"
+                options={dailySalesChart.options}
+                listener={dailySalesChart.animation}
+              />
+            </CardHeader> */}
+            {/* <CardBody>
+              <h4 className={classes.cardTitle}>Daily Sales</h4>
+              <p className={classes.cardCategory}>
+                <span className={classes.successText}>
+                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                </span>{" "}
+                increase in today sales.
+              </p>
+            </CardBody> */}
+            {/* <CardFooter chart>
+              <div className={classes.stats}>
+                <AccessTime /> updated 4 minutes ago
+              </div>
+            </CardFooter> */}
+          {/* </Card> */}
+          <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="warning">
+              <h4 className={classes.cardTitleWhite}>Recent Activities</h4>
+              {/* <p className={classes.cardCategoryWhite}>
+                New employees on 15th September, 2016
+              </p> */}
+            </CardHeader>
+            <CardBody>
+              <Table
+                tableHeaderColor="warning"
+                tableHead={["Merchant ID", "Name", "Location", "Deals Created", "Deals Claimed", "Deals Expired", "Action"]}
+                tableData={[
+                  ["1", "Dakota Rice", "$36,738", "Niger", "Dakota Rice", "$36,738", "Niger"],
+                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Dakota Rice", "$36,738", "Niger"],
+                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Dakota Rice", "$36,738", "Niger"],
+                  ["4", "Philip Chaney", "$38,735", "Korea, South", "Dakota Rice", "$36,738", "Niger"]
+                ]}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>
+          </Grid>
+        </Grid>
+
+    </div>
     // <Card>
     //   <CardHeader color="primary">
     //     <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
