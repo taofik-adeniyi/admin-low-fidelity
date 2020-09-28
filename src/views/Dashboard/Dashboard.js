@@ -307,12 +307,12 @@ export default function Dashboard() {
             <CardBody>
               <Table
                 tableHeaderColor="warning"
-                tableHead={["ID", "Name", "Salary", "Country"]}
+                tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment"]}
                 tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South"]
+                  ["1", "Dakota Rice", "$36,738", "Niger", "Llovely services"],
+                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "i am impressed"],
+                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "duh not bad pls try improve"],
+                  ["4", "Philip Chaney", "$38,735", "Korea, South", "naso"]
                 ]}
               />
             </CardBody>

@@ -20,8 +20,10 @@ import Accessibility from "@material-ui/icons/Accessibility";
 import ChartistGraph from "react-chartist";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import Table from "components/Table/Table.js";
-
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -66,8 +68,20 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
+const usedStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
+
 export default function TypographyPage() {
   const classes = useStyles();
+
+  const classed = usedStyles();
+
   return (
     <div>
     <GridContainer>
@@ -197,10 +211,52 @@ export default function TypographyPage() {
           <Grid item xs={12} sm={12} md={3}>
             <h5>Create Mall</h5>
             <Card>
-               
-              <p>Name:</p>
-              <p>Location:</p>
-              <p>About:</p> 
+              <form className={classed.root} noValidate autoComplete="off"> 
+                <TextField 
+                  required 
+                  label="Required" 
+                  id="standard-required"
+                  placeholder="Create Mall"
+                />
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Location"
+                  type="text"
+                  placeholder="Location"
+                />
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Description"
+                  type="text"
+                  placeholder="Description"
+                />
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Opening Hours"
+                  type="time"
+                />
+                {/* <div style={{marginLeft: "10%", marginTop: "5px", marginBottom: "5px"}}>
+                  <small>Office hours are 9am to 6pm</small>
+                </div> */}
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Closing Hours"
+                  type="time"
+                />
+                {/* <div style={{marginLeft: "10%", marginTop: "5px", marginBottom: "5px"}}>
+                  <small>Office hours are 9am to 6pm</small>
+                </div> */}
+                <div style={{marginLeft: "30%", marginTop: "10px", marginBottom: "10px"}}>
+                  <Button variant="contained" color="primary">
+                    Submit
+                  </Button>
+                </div>
+                
+              </form>
               {/* <CardHeader color="info" stats >
                 <CardIcon color="info">
                   <Accessibility />
