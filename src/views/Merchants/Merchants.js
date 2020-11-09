@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import {adminToken, clientId, clientSecret, adminId} from "../../enviroment"
+import {adminToken, clientId, clientSecret, adminId, baseUrl} from "../../enviroment"
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -82,14 +82,15 @@ const usedStyles = makeStyles((theme) => ({
 
 export default function Merchants() {
   const [merchants, setMerchants] = useState([])
+  const [totalmerchants, setTotalMerchants] = useState()
 
   useEffect(() => {
-    axios.get('/merchants',
-     {
-       params: {'userId': adminId}
-     },
+    axios.get(`${baseUrl}/merchants`,
      {
        headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossorigin': true,
+        'crossdomain': true,
         'Authorization': `Bearer ${adminToken}`,
         'client-id': clientId,
         'client_secret': clientSecret
@@ -97,14 +98,68 @@ export default function Merchants() {
      }
       )
       .then(response => {
-        console.log('Getter' + response.data)
+        setTotalMerchants(response.data.recordsFiltered)
       })
       .catch(error => {
-        // console.log(error)
-        const myError = error
+        console.log(error)
       })
   },[])
   
+
+
+  const [formValues, setFormValues] = useState({
+    image: "",
+    label: "",
+    merchants: [
+      {
+        "userId": "5f16c8d8dad183001b4104f7",
+        "businessName": "test",
+        "businessAddress": "test", 
+        "businessCategory": "test", 
+        "image": "image url"
+      },
+      {
+        "userId": "5f12c8d8dad183001b4104f7",
+        "businessName": "tes2t",
+        "businessAddress": "te2st", 
+        "businessCategory": "te2st", 
+        "image": "ima2ge url"
+      }
+    ]
+  })
+
+  const handleChangeForm = name => event => {
+    setFormValues({ ...formValues, [name]: event.target.value });
+  };
+
+  const submitMall = (e) => {
+    e.preventDefault()
+    if (formValues.label != "" && formValues.image != ""){
+      alert(formValues.label + ' ' + formValues.image)
+      axios.post(`${baseUrl}/mall`, formValues, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'crossorigin': true,
+          'crossdomain': true,
+          'Authorization': `Bearer ${adminToken}`,
+          'client-id': clientId,
+          'client_secret': clientSecret
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+        if(response.data){
+          console.log(response.data)
+        }
+      })
+      .catch(error => {
+        console.log('Error: ' + error)
+      })
+    }else{
+      alert("empty")
+    }
+  }
+
   const classes = useStyles();
 
   const classed = usedStyles();
@@ -117,7 +172,7 @@ export default function Merchants() {
           <CardHeader color="warning" stats>
             <h4 className={classes.cardCategory}>Total Merchants</h4>
             <h3 className={classes.cardTitle}>
-              2500 
+              {totalmerchants}
             </h3>
           </CardHeader>
           <CardFooter stats />
@@ -162,7 +217,6 @@ export default function Merchants() {
           />
         </CardHeader>
         <CardBody>
-          {/* <h4 className={classes.cardTitle}>9% Drop off</h4> */}
           <p className={classes.cardCategory}>
             <span className={classes.successText}>
               <ArrowUpward className={classes.upArrowCardCategory} /> 9%
@@ -170,11 +224,6 @@ export default function Merchants() {
             Drop Off
           </p>
         </CardBody>
-        {/* <CardFooter chart>
-          <div className={classes.stats}>
-            <AccessTime /> updated 4 minutes ago
-          </div>
-        </CardFooter> */}
       </Card>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>
@@ -190,7 +239,6 @@ export default function Merchants() {
           />
         </CardHeader>
         <CardBody>
-          {/* <h4 className={classes.cardTitle}>9% Drop off</h4> */}
           <p className={classes.cardCategory}>
             <span className={classes.successText}>
               <ArrowUpward className={classes.upArrowCardCategory} /> $50,000
@@ -198,11 +246,6 @@ export default function Merchants() {
             {/* Drop Off */}
           </p>
         </CardBody>
-        {/* <CardFooter chart>
-          <div className={classes.stats}>
-            <AccessTime /> updated 4 minutes ago
-          </div>
-        </CardFooter> */}
       </Card>
       </Grid><Grid item xs={12} sm={12} md={4}>
         <h5>Total Deals</h5>
@@ -222,14 +265,8 @@ export default function Merchants() {
             <span className={classes.successText}>
               <ArrowUpward className={classes.upArrowCardCategory} /> 10,000 Deals
             </span>{" "}
-            {/* Drop Off */}
           </p>
         </CardBody>
-        {/* <CardFooter chart>
-          <div className={classes.stats}>
-            <AccessTime /> updated 4 minutes ago
-          </div>
-        </CardFooter> */}
       </Card>
       </Grid>
     </Grid>
@@ -238,95 +275,39 @@ export default function Merchants() {
           <Grid item xs={12} sm={12} md={3}>
             <h5>Create Mall</h5>
             <Card>
-              <form className={classed.root} noValidate autoComplete="off"> 
+              <form values={formValues} className={classed.root} onSubmit={submitMall}>
                 <TextField 
                   required 
-                  label="Required" 
+                  label="Mall Name" 
                   id="standard-required"
-                  placeholder="Create Mall"
-                />
-                <TextField
-                  required
-                  id="standard-required"
-                  label="Location"
+                  placeholder="Mall Name"
                   type="text"
-                  placeholder="Location"
+                  value={formValues.label}
+                  onChange={handleChangeForm('label')}
                 />
                 <TextField
                   required
                   id="standard-required"
-                  label="Description"
+                  label="Image"
                   type="text"
-                  placeholder="Description"
+                  placeholder="Image"
+                  value={formValues.image}
+                  onChange={handleChangeForm('image')}
                 />
-                <TextField
-                  required
-                  id="standard-required"
-                  label="Opening Hours"
-                  type="time"
-                />
-                {/* <div style={{marginLeft: "10%", marginTop: "5px", marginBottom: "5px"}}>
-                  <small>Office hours are 9am to 6pm</small>
-                </div> */}
-                <TextField
-                  required
-                  id="standard-required"
-                  label="Closing Hours"
-                  type="time"
-                />
-                {/* <div style={{marginLeft: "10%", marginTop: "5px", marginBottom: "5px"}}>
-                  <small>Office hours are 9am to 6pm</small>
-                </div> */}
                 <div style={{marginLeft: "30%", marginTop: "10px", marginBottom: "10px"}}>
-                  <Button variant="contained" color="primary">
+                  <Button type="submit" variant="contained" color="primary">
                     Submit
                   </Button>
                 </div>
-                
               </form>
-              {/* <CardHeader color="info" stats >
-                <CardIcon color="info">
-                  <Accessibility />
-                </CardIcon>
-                <p className={classes.cardCategory}>No of Pinned Deals</p>
-                <h3 className={classes.cardTitle}>3000</h3>
-              </CardHeader> */}
             </Card>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
             <h5>All Merchants</h5>
-            {/* <Card chart> */}
-            {/* <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
-            </CardHeader> */}
-            {/* <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
-            </CardBody> */}
-            {/* <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter> */}
-          {/* </Card> */}
           <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
               <h4 className={classes.cardTitleWhite}>Recent Activities</h4>
-              {/* <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p> */}
             </CardHeader>
             <CardBody>
               <Table
@@ -344,110 +325,6 @@ export default function Merchants() {
         </GridItem>
           </Grid>
         </Grid>
-
     </div>
-    // <Card>
-    //   <CardHeader color="primary">
-    //     <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
-    //     <p className={classes.cardCategoryWhite}>
-    //       Created using Roboto Font Family
-    //     </p>
-    //   </CardHeader>
-    //   <CardBody>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Header 1</div>
-    //       <h1>The Life of Material Dashboard</h1>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Header 2</div>
-    //       <h2>The Life of Material Dashboard</h2>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Header 3</div>
-    //       <h3>The Life of Material Dashboard</h3>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Header 4</div>
-    //       <h4>The Life of Material Dashboard</h4>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Header 5</div>
-    //       <h5>The Life of Material Dashboard</h5>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Header 6</div>
-    //       <h6>The Life of Material Dashboard</h6>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Paragraph</div>
-    //       <p>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers. I understand culture. I am
-    //         the nucleus. I think that’s a responsibility that I have, to push
-    //         possibilities, to show people, this is the level that things could
-    //         be at.
-    //       </p>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Quote</div>
-    //       <Quote
-    //         text="I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-    //         author=" Kanye West, Musician"
-    //       />
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Muted Text</div>
-    //       <Muted>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers...
-    //       </Muted>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Primary Text</div>
-    //       <Primary>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers...
-    //       </Primary>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Info Text</div>
-    //       <Info>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers...
-    //       </Info>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Success Text</div>
-    //       <Success>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers...
-    //       </Success>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Warning Text</div>
-    //       <Warning>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers...
-    //       </Warning>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Danger Text</div>
-    //       <Danger>
-    //         I will be the leader of a company that ends up being worth billions
-    //         of dollars, because I got the answers...
-    //       </Danger>
-    //     </div>
-    //     <div className={classes.typo}>
-    //       <div className={classes.note}>Small Tag</div>
-    //       <h2>
-    //         Header with small subtitle
-    //         <br />
-    //         <small>
-    //           Use {'"'}Small{'"'} tag for the headers
-    //         </small>
-    //       </h2>
-    //     </div>
-    //   </CardBody>
-    // </Card>
   );
 }
