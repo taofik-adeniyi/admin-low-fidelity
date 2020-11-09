@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, adminId} from "react";
+import axios from "axios";
+import {adminToken, clientId, clientSecret, baseUrl} from "../../enviroment"
+
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -44,9 +47,57 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
+  const [loading, setLoading] = useState(true)
+  const [dealsNo, setDealsNo] = useState()
+  const [noOfMerchants, setNoOfMerchants] = useState()
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/deal`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossorigin': true,
+        'crossdomain': true,
+        'Authorization': `Bearer ${adminToken}`,
+        'client-id': clientId,
+        'client_secret': clientSecret
+      }
+    })
+      .then(res => {
+        setLoading(false)
+        setDealsNo(res.data.recordsFiltered)
+        console.log(res.data.recordsFiltered)
+      })
+      .catch(err => {
+        setLoading(false)
+        console.log(err)
+      })
+  }, [])
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/merchants`, {
+       headers: {
+        "Access-Control-Allow-Origin": "*",
+        'Authorization': `Bearer ${adminToken}`,
+        'client-id': clientId,
+        'client_secret': clientSecret
+        }
+     }
+      )
+      .then(response => {
+        console.log('Getter' + response.data)
+        setLoading(false)
+        setNoOfMerchants(response.data.recordsFiltered)
+      })
+      .catch(error => {
+        setLoading(false)
+        console.log('Error Gotten' + error)
+      })
+  },[])
+
   const classes = useStyles();
   return (
     <div>
+      {console.log('deal error ' + dealsNo)}
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -79,7 +130,7 @@ export default function Dashboard() {
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>No of Merchants</p>
-              <h3 className={classes.cardTitle}>500</h3>
+              <h3 className={classes.cardTitle}>{loading? '... loading ....' : noOfMerchants}</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -113,7 +164,7 @@ export default function Dashboard() {
                 <Accessibility />
               </CardIcon>
               <p className={classes.cardCategory}>No of Created Deals</p>
-              <h3 className={classes.cardTitle}>5000</h3>
+              <h3 className={classes.cardTitle}>{loading ? '..loading deals Num' : dealsNo}</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>

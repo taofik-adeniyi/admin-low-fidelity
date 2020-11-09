@@ -1,0 +1,106 @@
+@import "./All.scss";
+
+.myModal {
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3000;
+  opacity: 1;
+  overflow: auto;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease-in both;
+  transition: 0.3s all;
+
+  @include breakpoint(desktop-up) {
+    padding: 5rem;
+  }
+}
+
+.modalBlock {
+  display: flex;
+  background-color: transparent;
+  flex: 1 1;
+  justify-content: center;
+  align-items: center;
+  animation: MoveUp 0.5s ease-in-out both;
+  transition: 0.3s all;
+
+  &-content {
+    width: 100%;
+    padding: 3rem 1rem;
+    max-width: 570px;
+    background: #fff;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 7px;
+    box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.12),
+      0 3px 6px 0 rgba(0, 0, 0, 0.12);
+
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14.3809px;
+      line-height: 22px;
+    }
+  }
+}
+.input-label {
+  color: $grayColor;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: rem-calc(18);
+}
+
+.modalWrapper {
+  width: 100%;
+  max-width: 570px;
+
+  @include breakpoint(desktop-up) {
+    .closeModal {
+      right: 5%;
+      top: 15px;
+      display: flex;
+      position: absolute;
+      z-index: 4000;
+    }
+  }
+}
+.modalContainer {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1rem 0;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    background-color: $whiteColor;
+    width: 100%;
+
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 2rem;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.buttonAction {
+  background: #fff;
+  padding: 1rem;
+  justify-content: center;
+  display: flex;
+}
+
+.partner-pd {
+  padding: 0rem 1.8rem;
+}

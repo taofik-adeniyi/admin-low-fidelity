@@ -1,0 +1,165 @@
+$grayColor: #bbbbbb;
+$grayShadeColor: #a3a3a3;
+$deepGrayColor: #999999;
+$lightGrayColor: #d8d8d8;
+$lightShadeGrayColor: #e5e5e559;
+$whiteColor: white;
+$muliFont: "Muli", sans-serif;
+$fourRem: 4rem;
+$fiveRem: 5rem;
+$twoRem: 2rem;
+$threeRem: 3rem;
+$oneRem: 1rem;
+$threeHundredPx: 300px;
+$twoEightyPx: 280px;
+$twoFiftyPx: 250px;
+$pinkColor: #f15751;
+$redColor: #f20000;
+$cyanColor: #00e8e8;
+$greenColor: #0a7815;
+$subtleGreenColor: rgba(10, 120, 21, 0.21);
+$subtleRedColor: rgba(242, 0, 0, 0.2);
+$transparentColor: transparent;
+$yellowColor: #ffcc00;
+$yellowShadeColor: rgba(255, 204, 0, 0.2);
+$blackColor: #0e0e0e;
+
+@mixin breakpoint($size) {
+  @if $size == small-phone-only {
+    @media (max-width: 330px) {
+      @content;
+    }
+  }
+  @if $size == phone-only {
+    @media (max-width: 599px) {
+      @content;
+    }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: 600px) and (max-width: 768px) {
+      @content;
+    }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: 769px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $size == desktop-up {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $size == big-desktop-up {
+    @media (min-width: 1800px) {
+      @content;
+    }
+  }
+}
+
+$body-font-size: 16;
+
+@function rem-calc($value) {
+  @return #{$value/$body-font-size}rem;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.gray {
+  color: $grayColor;
+}
+.grayShade {
+  color: $grayShadeColor;
+}
+.yellow {
+  color: $yellowColor;
+}
+.green {
+  color: $greenColor;
+}
+$colors: (
+  blue: #29489b,
+  yellow: #fcab31,
+  gray: #595959,
+  lightGray: #707070,
+  darkGray: #3c3c3c,
+  white: #ffffff,
+  kbwhite: #d8e3ff,
+  green: #36b37e,
+  black: #282a3c,
+  red: #ff5151,
+  lightBlue: #6180d5,
+  lightAsh: #dddbd7,
+  grayShade: #475f7b,
+  subtleGray: #828d99,
+  faintBlue: #d4e5f9,
+  fadedBlue: #f5f7fb,
+  secondaryBlue: #29489b,
+  lightBlack: rgba(0, 0, 0, 0.16),
+  lightWhite: rgba(255, 255, 255, 0.5),
+);
+
+@function color($color) {
+  @return map-get($map: $colors, $key: $color);
+}
+
+//$resets
+
+* {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+body,
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+  font-family: "Poppins", BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+*:focus {
+  outline: none;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+.small-font {
+  font-size: 12px;
+}
+.small-text-center {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.avatar-sm {
+  width: 30px;
+  height: 30px;
+
+  @include breakpoint(desktop-up){
+    width: unset;
+    height: unset;
+  }
+}

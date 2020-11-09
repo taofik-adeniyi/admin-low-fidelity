@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {adminToken, clientId, clientSecret, baseUrl} from "../../enviroment"
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -10,6 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardIcon from "components/Card/CardIcon.js";
+import Modal from "components/Modal/Modal";
 import Icon from "@material-ui/core/Icon";
 import Store from "@material-ui/icons/Store";
 import Accessibility from "@material-ui/icons/Accessibility";
@@ -51,12 +54,118 @@ const styles = {
   }
 };
 
+
 const useStyles = makeStyles(styles);
 
-export default function TableList() {
+export default function Deals() {
+  
+
+  const [loading, setLoading] = useState(true)
+  const [dealsList, setDealsList] = useState([]);
+  const [decline, setDecline] = useState(false);
+  const [commentObj, setCommentObj] = useState({id: 'abc', reason: ''});
+  const [status, setStatus] = useState("")
+  const [dealsNo, setDealsNo] = useState()
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/deal`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        'crossorigin': true,
+        'crossdomain': true,
+        'Authorization': `Bearer ${adminToken}`,
+        'client-id': clientId,
+        'client_secret': clientSecret
+      }
+    })
+      .then(res => {
+        setLoading(false)
+        setDealsList(res.data.data);
+        setDealsNo(res.data.recordsFiltered)
+      })
+      .catch(err => {
+        setLoading(false)
+        setDealsList([])
+        console.log(err)
+      })
+  }, [])
+
+  const handleApprove = (deals_id) => {
+    
+    setCommentObj((prevState) => ({
+      ...prevState, id: deals_id
+    }))
+    
+    console.log('after ' + commentObj.id)
+
+    axios.post('/deal/approve', {id: deals_id}, {
+      headers: {
+      'Authorization': `Bearer ${adminToken}`,
+      'client-id': clientId,
+      'client_secret': clientSecret
+      }
+    })
+      .then(response => {
+        if(response.data){
+          alert("The deal as already been approved")
+        }
+      })
+      .catch(error =>  {
+        console.log('Error: ' + error)
+      })
+  }
+
+  const handleDecline = (deals_id) => {
+    setDecline(true)
+    setCommentObj({'id': `${deals_id}`})
+    console.log('lol' + commentObj.id)
+
+    // setCommentObj({...commentObj}, {
+    //   id: 23
+    //   // reason: 'mad o' 
+    // })
+  }
+
+  const submitDeclineReason = e => {
+    e.preventDefault()
+
+    // setCommentObj({...commentObj}, {
+    //   id: 23,
+    //   reason: 'mad o' 
+    // })
+
+    axios.post('/deal/decline', commentObj, {
+      headers: {
+        'Authorization': `Bearer ${adminToken}`,
+        'client-id': 'staging_zHHPqPn.Gp2ZSTkRM81Sksp3Ig0~d1F8..b3dWN3XtTRZS8MYMy28poWD7v6UKQsFptXN15MtxHw9uL59LCfaGVy5LFPFu.j9qnP',
+        'client_secret': 'e3B3cDyU-KjI7hL90Bw82rbRuosbSbDv_mEKbdeqde2xW9lOcRWEO7lpMv0VH22RNg3E~7qKJMlMc.WwF9AQLtKYvHu9hy0t7v~T'
+      }
+    })
+    .then(response => {
+      console.log(response.data)
+      if(response.data){
+        alert ("Deal has already been Declined")
+      }
+      setDecline(false)
+    })
+    .catch(error => {
+      console.log('Error: ' + error)
+    })
+  }
+  
+  const handleStatusChange = event => {
+    setStatus(event.target.value)
+    console.log(status)
+  }
+
+  const handleFilter = () => {
+    return true
+  }
+  
   const classes = useStyles();
   return (
     <div>
+      {console.log('the amount of'+ dealsNo)}
     <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -66,8 +175,7 @@ export default function TableList() {
               </CardIcon>
               <p className={classes.cardCategory}>No of Deals Created</p>
               <h3 className={classes.cardTitle}>
-                2500 
-                <small>GB</small>
+                {loading? '..loading' : dealsNo}  
               </h3>
             </CardHeader>
             <CardFooter stats>
@@ -134,109 +242,101 @@ export default function TableList() {
           </Card>
         </GridItem>
       </GridContainer>
-
+              <div>
+                <p>Filter By Status</p>
+                <form onSubmit={handleFilter}>
+                  <select value={status} onChange={handleStatusChange}>
+                    <option value="pick">pick a status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="declined">Declined</option>
+                  </select>
+                </form>
+              </div>
       <GridContainer>
-        {/* <GridContainer><div><h4>Deals Created</h4></div></GridContainer> */}
-        <GridItem xs={12} sm={6} md={4}>
-            <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              height="140"
-              image="https://ik.imagekit.io/nudrflqsg/website/bf56ab4486329a2d59fba483831a3ef3_Ii8-ZUcmu-.png?tr:q-60"
-              title="Contemplative Reptile"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Wine Coloured Sneaker
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Description: Blue Shoes<br/>
-                Price: N5,000<br/>
-                Merchant: Blue Rose Limited
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
+        {/* <ul>
+          {
+            dealsList.map(title => 
+              (title.filter(indicator => indicator.status === status).map(filteredIndicator => 
+                  (
+                    <li>hello
+                      {filteredIndicator.title}
+                    </li>
+                  )
+                ))
+            )
+          }
+        </ul> */}
+        {
+        loading ? '...loading' : 
+        dealsList.map((title) => 
+          <GridItem xs={12} sm={6} md={4} key={title.id}>
+          <Card className={classes.root}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                alt={`${title.title}`}
+                height="140"
+                image={`${title.images[0]}`}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {title.title}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Description: {title.description}<br/>
+                  Price: {`${'₦'}${title.amount}`}<br/>
+                  Merchant: {title.id}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button 
+              size="small" 
+              color="primary" 
+              onClick={() => handleApprove(title.id)}
+              >
               Approve
-            </Button>
-            <Button size="small" color="primary">
+              </Button>
+              <Button 
+              size="small" 
+              color="primary" 
+              onClick={() => handleDecline(title.id)}
+              >
               Decline
-            </Button>
-          </CardActions>
-        </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
-            <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              height="140"
-              image="https://ik.imagekit.io/nudrflqsg/website/bf56ab4486329a2d59fba483831a3ef3_Ii8-ZUcmu-.png?tr:q-60"
-              title="Contemplative Reptile"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Sneaker 2
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Description: Blue Shoes<br/>
-                Price: N5,000<br/>
-                Merchant: Blue Rose Limited
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Approve
-            </Button>
-            <Button size="small" color="primary">
-              Decline
-            </Button>
-          </CardActions>
-        </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
-            <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              height="140"
-              image="https://ik.imagekit.io/nudrflqsg/website/bf56ab4486329a2d59fba483831a3ef3_Ii8-ZUcmu-.png?tr:q-60"
-              title="Contemplative Reptile"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                Sneaker 3
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Description: Blue Shoes<br/>
-                Price: N5,000<br/>
-                Merchant: Blue Rose Limited
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Approve
-            </Button>
-            <Button size="small" color="primary">
-              Decline
-            </Button>
-          </CardActions>
-        </Card>
-        </GridItem>
+              </Button>
+            </CardActions>
+          </Card>
+        </GridItem>)
+        }
       </GridContainer>
-
+        {decline ? (
+          <Modal
+            onClick={(e) => e.preventDefault()}
+            cancel={true}
+            onNullClick={(e) => e.stopPropagation()}
+            onClick={() => setDecline(!decline)}
+          >
+            <form 
+            onSubmit={submitDeclineReason}
+            >
+              <input
+              onChange={(e) => setCommentObj({...commentObj, 'reason': e.target.value})}
+              type="text" 
+              name="comment" 
+              value={commentObj.reason} 
+              placeholder="Your Comment here" 
+              /><br />
+              <button type="submit">Send Comment</button>
+            </form>
+          </Modal>
+        ): ""}
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Recent Activities</h4>
+              <h4 className={classes.cardTitleWhite}>Recent Activities Showing all deals</h4>
               {/* <p className={classes.cardCategoryWhite}>
                 New employees on 15th September, 2016
               </p> */}
@@ -244,9 +344,9 @@ export default function TableList() {
             <CardBody>
               <Table
                 tableHeaderColor="warning"
-                tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment"]}
+                tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment", "address"]}
                 tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger", "hello world"]
+                  ["1", "Dakota Rice", "MerchantNameID2521236738", "Niger", "hello world", 'dealsList']
                 ]}
               />
             </CardBody>

@@ -8,9 +8,9 @@ import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
-import UserProfile from "views/UserProfile/UserProfile.js";
-import TableList from "views/TableList/TableList.js";
-import Typography from "views/Typography/Typography.js";
+import Transactions from "views/Transactions/Transactions.js";
+import Deals from "views/Deals/Deals.js";
+import Merchants from "views/Merchants/Merchants.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
@@ -32,7 +32,7 @@ const dashboardRoutes = [
     name: "Transactions",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
-    component: UserProfile,
+    component: Transactions,
     layout: "/admin"
   },
   {
@@ -40,7 +40,7 @@ const dashboardRoutes = [
     name: "Deals",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
-    component: TableList,
+    component: Deals,
     layout: "/admin"
   },
   {
@@ -48,7 +48,7 @@ const dashboardRoutes = [
     name: "Merchants",
     rtlName: "طباعة",
     icon: LibraryBooks,
-    component: Typography,
+    component: Merchants,
     layout: "/admin"
   },
   {

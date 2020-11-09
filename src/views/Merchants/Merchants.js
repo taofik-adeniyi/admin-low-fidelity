@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import {adminToken, clientId, clientSecret, adminId} from "../../enviroment"
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -77,7 +80,31 @@ const usedStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TypographyPage() {
+export default function Merchants() {
+  const [merchants, setMerchants] = useState([])
+
+  useEffect(() => {
+    axios.get('/merchants',
+     {
+       params: {'userId': adminId}
+     },
+     {
+       headers: {
+        'Authorization': `Bearer ${adminToken}`,
+        'client-id': clientId,
+        'client_secret': clientSecret
+        }
+     }
+      )
+      .then(response => {
+        console.log('Getter' + response.data)
+      })
+      .catch(error => {
+        // console.log(error)
+        const myError = error
+      })
+  },[])
+  
   const classes = useStyles();
 
   const classed = usedStyles();
