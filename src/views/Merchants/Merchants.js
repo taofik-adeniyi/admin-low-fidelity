@@ -135,7 +135,7 @@ export default function Merchants() {
   const submitMall = (e) => {
     e.preventDefault()
     if (formValues.label != "" && formValues.image != ""){
-      alert(formValues.label + ' ' + formValues.image)
+      // alert("submitted succesfully")
       axios.post(`${baseUrl}/mall`, formValues, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -150,6 +150,7 @@ export default function Merchants() {
         console.log(response.data)
         if(response.data){
           console.log(response.data)
+          alert("submitted succesfully")
         }
       })
       .catch(error => {
