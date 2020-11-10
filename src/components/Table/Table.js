@@ -7,6 +7,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import AButton from '@material-ui/core/Button';
+
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 
@@ -38,13 +40,42 @@ export default function CustomTable(props) {
           {tableData.map((prop, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
-                {prop.map((prop, key) => {
-                  return (
                     <TableCell className={classes.tableCell} key={key}>
-                      {prop}
+                      {prop.id}
                     </TableCell>
-                  );
-                })}
+                    <TableCell className={classes.tableCell} key={key}>
+                      {prop.title}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} key={key}>
+                      {prop.merchantName}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} key={key}>
+                      {prop.state}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} key={key}>
+                      {prop.description}
+                    </TableCell>
+                    <TableCell className={classes.tableCell} key={key}>
+                      {prop.dealer}
+                    </TableCell>
+                    
+                    {!prop.manor ? null : 
+                      <TableCell className={classes.tableCell} key={key}>
+                        {prop.manor}
+                      </TableCell>
+                    }
+                    
+                    {!prop.action ? null : 
+                      <TableCell className={classes.tableCell} key={key}>
+                        <AButton variant="contained" color="primary" style={{marginTop: "5px"}}>
+                          View
+                        </AButton>
+                        <AButton color="primary" variant="contained" style={{marginTop: "5px", marginLeft: "5px"}}>
+                          Remove
+                        </AButton>
+                      </TableCell>
+                    }
+
               </TableRow>
             );
           })}

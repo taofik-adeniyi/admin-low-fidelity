@@ -80,7 +80,8 @@ export default function Deals() {
     })
       .then(res => {
         setLoading(false)
-        setDealsList(res.data.data);
+        setDealsList(res.data.data)
+        console.log(res.data.data)
         setDealsNo(res.data.recordsFiltered)
       })
       .catch(err => {
@@ -165,7 +166,7 @@ export default function Deals() {
   const classes = useStyles();
   return (
     <div>
-      {console.log('the amount of'+ dealsNo)}
+      {console.log('this is the deals list' + dealsList)}
     <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -179,14 +180,7 @@ export default function Deals() {
               </h3>
             </CardHeader>
             <CardFooter stats>
-              {/* <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
-                  Get more space
-                </a>
-              </div> */}
+             
             </CardFooter>
           </Card>
         </GridItem>
@@ -200,10 +194,7 @@ export default function Deals() {
               <h3 className={classes.cardTitle}>500</h3>
             </CardHeader>
             <CardFooter stats>
-              {/* <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
-              </div> */}
+              
             </CardFooter>
           </Card>
         </GridItem>
@@ -217,10 +208,6 @@ export default function Deals() {
               <h3 className={classes.cardTitle}>25</h3>
             </CardHeader>
             <CardFooter stats>
-              {/* <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
-              </div> */}
             </CardFooter>
           </Card>
         </GridItem>
@@ -234,10 +221,6 @@ export default function Deals() {
               <h3 className={classes.cardTitle}>5000</h3>
             </CardHeader>
             <CardFooter stats>
-              {/* <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div> */}
             </CardFooter>
           </Card>
         </GridItem>
@@ -254,19 +237,6 @@ export default function Deals() {
                 </form>
               </div>
       <GridContainer>
-        {/* <ul>
-          {
-            dealsList.map(title => 
-              (title.filter(indicator => indicator.status === status).map(filteredIndicator => 
-                  (
-                    <li>hello
-                      {filteredIndicator.title}
-                    </li>
-                  )
-                ))
-            )
-          }
-        </ul> */}
         {
         loading ? '...loading' : 
         dealsList.map((title) => 
@@ -337,83 +307,16 @@ export default function Deals() {
           <Card>
             <CardHeader color="warning">
               <h4 className={classes.cardTitleWhite}>Recent Activities Showing all deals</h4>
-              {/* <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p> */}
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="warning"
                 tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment", "address"]}
-                tableData={[
-                  ["1", "Dakota Rice", "MerchantNameID2521236738", "Niger", "hello world", 'dealsList']
-                ]}
+                tableData={dealsList}
               />
             </CardBody>
           </Card>
         </GridItem>
-      {/* <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem> */}
     </GridContainer>
     </div>
   );

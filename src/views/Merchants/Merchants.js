@@ -315,10 +315,7 @@ export default function Merchants() {
                 tableHeaderColor="warning"
                 tableHead={["Merchant ID", "Name", "Location", "Deals Created", "Deals Claimed", "Deals Expired", "Action"]}
                 tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger", "Dakota Rice", "$36,738", "Niger"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Dakota Rice", "$36,738", "Niger"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Dakota Rice", "$36,738", "Niger"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South", "Dakota Rice", "$36,738", "Niger"]
+                  {id: 1, title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "Dakota Rice", dealer: "$36,738", manor: "Niger"}
                 ]}
               />
             </CardBody>
