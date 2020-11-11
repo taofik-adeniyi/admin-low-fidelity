@@ -58,13 +58,12 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function Deals() {
-  
 
   const [loading, setLoading] = useState(true)
   const [dealsList, setDealsList] = useState([]);
   const [decline, setDecline] = useState(false);
   const [commentObj, setCommentObj] = useState({id: 'abc', reason: ''});
-  const [status, setStatus] = useState("")
+  const [status, setStatus] = useState("DECLINED")
   const [dealsNo, setDealsNo] = useState()
 
   useEffect(() => {
@@ -81,7 +80,6 @@ export default function Deals() {
       .then(res => {
         setLoading(false)
         setDealsList(res.data.data)
-        console.log(res.data.data)
         setDealsNo(res.data.recordsFiltered)
       })
       .catch(err => {
@@ -143,7 +141,6 @@ export default function Deals() {
       }
     })
     .then(response => {
-      console.log(response.data)
       if(response.data){
         alert ("Deal has already been Declined")
       }
@@ -154,133 +151,136 @@ export default function Deals() {
     })
   }
   
-  const handleStatusChange = event => {
+  const handleStatusChange = (event) => {
     setStatus(event.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    setStatus(status)
     console.log(status)
   }
 
-  const handleFilter = () => {
-    return true
-  }
+  const dealsResult = dealsList.filter(result => result.status === status)
   
   const classes = useStyles();
+
   return (
     <div>
-      {console.log('this is the deals list' + dealsList)}
-    <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="warning" stats>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Deals Created</p>
-              <h3 className={classes.cardTitle}>
-                {loading? '..loading' : dealsNo}  
-              </h3>
-            </CardHeader>
-            <CardFooter stats>
-             
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="success" stats>
-              <CardIcon color="success">
-                <Store />
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Pinned Deals</p>
-              <h3 className={classes.cardTitle}>500</h3>
-            </CardHeader>
-            <CardFooter stats>
+        <GridContainer>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="warning" stats>
+                <CardIcon color="warning">
+                  <Icon>content_copy</Icon>
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Deals Created</p>
+                <h3 className={classes.cardTitle}>
+                  {loading? '..loading' : dealsNo}  
+                </h3>
+              </CardHeader>
+              <CardFooter stats>
               
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="danger" stats>
-              <CardIcon color="danger">
-                <Icon>info_outline</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Claimed Deals</p>
-              <h3 className={classes.cardTitle}>25</h3>
-            </CardHeader>
-            <CardFooter stats>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Expired Deals</p>
-              <h3 className={classes.cardTitle}>5000</h3>
-            </CardHeader>
-            <CardFooter stats>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-              <div>
-                <p>Filter By Status</p>
-                <form onSubmit={handleFilter}>
-                  <select value={status} onChange={handleStatusChange}>
-                    <option value="pick">pick a status</option>
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="declined">Declined</option>
-                  </select>
-                </form>
-              </div>
-      <GridContainer>
-        {
-        loading ? '...loading' : 
-        dealsList.map((title) => 
-          <GridItem xs={12} sm={6} md={4} key={title.id}>
-          <Card className={classes.root}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                alt={`${title.title}`}
-                height="140"
-                image={`${title.images[0]}`}
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {title.title}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Description: {title.description}<br/>
-                  Price: {`${'₦'}${title.amount}`}<br/>
-                  Merchant: {title.id}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button 
-              size="small" 
-              color="primary" 
-              onClick={() => handleApprove(title.id)}
-              >
-              Approve
-              </Button>
-              <Button 
-              size="small" 
-              color="primary" 
-              onClick={() => handleDecline(title.id)}
-              >
-              Decline
-              </Button>
-            </CardActions>
-          </Card>
-        </GridItem>)
-        }
-      </GridContainer>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="success" stats>
+                <CardIcon color="success">
+                  <Store />
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Pinned Deals</p>
+                <h3 className={classes.cardTitle}>500</h3>
+              </CardHeader>
+              <CardFooter stats>
+                
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="danger" stats>
+                <CardIcon color="danger">
+                  <Icon>info_outline</Icon>
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Claimed Deals</p>
+                <h3 className={classes.cardTitle}>25</h3>
+              </CardHeader>
+              <CardFooter stats>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={3}>
+            <Card>
+              <CardHeader color="info" stats>
+                <CardIcon color="info">
+                  <Accessibility />
+                </CardIcon>
+                <p className={classes.cardCategory}>No of Expired Deals</p>
+                <h3 className={classes.cardTitle}>5000</h3>
+              </CardHeader>
+              <CardFooter stats>
+              </CardFooter>
+            </Card>
+          </GridItem>
+        </GridContainer>
+        <div>
+          <p>Filter By Status</p>
+          <form onSubmit={handleSubmit}>
+            <select value={status} onChange={handleStatusChange} style={{padding: '6px'}}>
+              <option disabled value="">Pick a status</option>
+              <option value="PENDING">Pending</option>
+              <option value="APPROVED">Approved</option>
+              <option value="DECLINED">Declined</option>
+            </select>
+            <input style={{padding: '5px', outline: 'none', marginLeft: '10px'}} type="submit" value="Submit" />
+          </form>
+        </div>
+        <GridContainer>
+          {
+            loading ? '...loading' : 
+            dealsResult.map((title) => 
+              <GridItem xs={12} sm={6} md={4} key={title.id}>
+                <Card className={classes.root}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      alt={`${title.title}`}
+                      height="140"
+                      image={`${title.images[0]}`}
+                      title="Contemplative Reptile"
+                    />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {title.title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          Description: {title.description}<br/>
+                          Price: {`${'₦'}${title.amount}`}<br/>
+                          Merchant: {title.id}
+                        </Typography>
+                      </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button 
+                    size="small" 
+                    color="primary" 
+                    onClick={() => handleApprove(title.id)}
+                    >
+                    Approve
+                    </Button>
+                    <Button 
+                    size="small" 
+                    color="primary" 
+                    onClick={() => handleDecline(title.id)}
+                    >
+                    Decline
+                    </Button>
+                  </CardActions>
+                </Card>
+              </GridItem>
+          )}
+        </GridContainer>
         {decline ? (
           <Modal
             onClick={(e) => e.preventDefault()}
