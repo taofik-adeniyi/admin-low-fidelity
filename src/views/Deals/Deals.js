@@ -233,7 +233,7 @@ export default function Deals() {
               <option value="APPROVED">Approved</option>
               <option value="DECLINED">Declined</option>
             </select>
-            <input style={{padding: '5px', outline: 'none', marginLeft: '10px'}} type="submit" value="Submit" />
+            {/* <input style={{padding: '5px', outline: 'none', marginLeft: '10px'}} type="submit" value="Submit" /> */}
           </form>
         </div>
         <GridContainer>
