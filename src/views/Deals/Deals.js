@@ -89,16 +89,15 @@ export default function Deals() {
       })
   }, [])
 
+
+  // handle the approval of deals
   const handleApprove = (deals_id) => {
     
-    setCommentObj((prevState) => ({
-      ...prevState, id: deals_id
-    }))
-    
-    console.log('after ' + commentObj.id)
-
-    axios.post('/deal/approve', {id: deals_id}, {
+    axios.post(`${baseUrl}/deal/approve`, {id: deals_id}, {
       headers: {
+      "Access-Control-Allow-Origin": "*",
+      'crossorigin': true,
+      'crossdomain': true,
       'Authorization': `Bearer ${adminToken}`,
       'client-id': clientId,
       'client_secret': clientSecret
@@ -106,7 +105,7 @@ export default function Deals() {
     })
       .then(response => {
         if(response.data){
-          alert("The deal as already been approved")
+          alert(response.data.data)
         }
       })
       .catch(error =>  {
@@ -224,6 +223,17 @@ export default function Deals() {
             </Card>
           </GridItem>
         </GridContainer>
+        <GridContainer>
+          <GridItem>
+            <Card>
+            <CardHeader>
+              <h4 className={classes.cardTitleWhite} style={{color: "black", fontWeight: "bold"}}>
+                Deals Created
+              </h4>
+            </CardHeader>
+            </Card>
+          </GridItem>
+        </GridContainer>
         <div>
           <p>Filter By Status</p>
           <form onSubmit={handleSubmit}>
@@ -233,9 +243,9 @@ export default function Deals() {
               <option value="APPROVED">Approved</option>
               <option value="DECLINED">Declined</option>
             </select>
-            {/* <input style={{padding: '5px', outline: 'none', marginLeft: '10px'}} type="submit" value="Submit" /> */}
           </form>
         </div>
+        <div style={{float: "left", marginLeft: "85%", position: "absolute"}}>Create Deal</div>
         <GridContainer>
           {
             loading ? '...loading' : 
@@ -269,7 +279,7 @@ export default function Deals() {
                     >
                     Approve
                     </Button>
-                    <Button 
+                    <Button
                     size="small" 
                     color="primary" 
                     onClick={() => handleDecline(title.id)}
@@ -303,10 +313,13 @@ export default function Deals() {
           </Modal>
         ): ""}
       <GridContainer>
+        <GridItem xs={12} sm={12} md={12} style={{marginLeft: "78%"}}>
+          <input type="search" placeholder="Search Here" style={{padding: "5px 10px", color: "black", fontWeight: "bold", marginBottom: "10px"}} />
+        </GridItem>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Recent Activities Showing all deals</h4>
+              <h4 className={classes.cardTitleWhite} style={{postion: "absolute"}}>Recent Activities</h4>
             </CardHeader>
             <CardBody>
               <Table

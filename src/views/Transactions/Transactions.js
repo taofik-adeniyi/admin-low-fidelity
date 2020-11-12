@@ -85,10 +85,7 @@ export default function Transactions() {
       <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Recent Transactions</h4>
-              {/* <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p> */}
+              <h4 className={classes.cardTitleWhite}>Transactions History</h4>
             </CardHeader>
             <CardBody>
               <Table

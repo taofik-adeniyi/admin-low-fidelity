@@ -204,6 +204,17 @@ export default function Merchants() {
         </Card>
       </GridItem>
     </GridContainer>
+    <div style={{marginBottom: "5px", marginLeft: "80%"}}>
+      <p>Filter By Option</p>
+      <form>
+        <select style={{padding: '6px'}}>
+          <option disabled value="">Pick Option</option>
+          <option value="PENDING">Option 1</option>
+          <option value="APPROVED">Option 2</option>
+          <option value="DECLINED">Option 3</option>
+        </select>
+      </form>
+    </div>
     <Grid container spacing={3}>
       <Grid item xs={12} sm={12} md={4}>
         <h5>Merchant % Drop off</h5>
@@ -261,7 +272,6 @@ export default function Merchants() {
           />
         </CardHeader>
         <CardBody>
-          {/* <h4 className={classes.cardTitle}>9% Drop off</h4> */}
           <p className={classes.cardCategory}>
             <span className={classes.successText}>
               <ArrowUpward className={classes.upArrowCardCategory} /> 10,000 Deals
@@ -304,7 +314,8 @@ export default function Merchants() {
             </Card>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
-            <h5>All Merchants</h5>
+            <h5 style={{position: "absolute", marginLeft: "20px"}}>All Merchants</h5>
+            <h5 style={{marginLeft: "75%"}}>Create Merchant</h5>
           <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">

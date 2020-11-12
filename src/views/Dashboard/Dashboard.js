@@ -213,10 +213,10 @@ export default function Dashboard() {
             <CardBody>
               <Table
                 tableHeaderColor="warning"
-                tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment", "address"]}
+                tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment"]}
                 tableData={[
-                  {id: 1, title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "Llovely services", dealer: "Sage Rodriguez"},
-                  {id: 3, title: "Sage Rodriguez", merchantName: "$56,142", state: "Netherlands", description: "duh not bad pls try improve", dealer: "Dakota Rice"},
+                  {id: 1, title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "Llovely services"},
+                  {id: 3, title: "Sage Rodriguez", merchantName: "$56,142", state: "Netherlands", description: "duh not bad pls try improve"},
                 ]}
               />
             </CardBody>
