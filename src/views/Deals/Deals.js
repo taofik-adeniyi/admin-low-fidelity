@@ -62,10 +62,12 @@ export default function Deals() {
   const [loading, setLoading] = useState(true)
   const [dealsList, setDealsList] = useState([]);
   const [decline, setDecline] = useState(false);
-  const [commentObj, setCommentObj] = useState({id: 'abc', reason: ''});
   const [status, setStatus] = useState("DECLINED")
   const [dealsNo, setDealsNo] = useState()
+  const [dealid, setDealid] = useState("")
+  const [comment, setComment] = useState("")
 
+  //Get All Deals and Display 
   useEffect(() => {
     axios.get(`${baseUrl}/deal`, {
       headers: {
@@ -90,12 +92,12 @@ export default function Deals() {
   }, [])
 
 
-  // handle the approval of deals
+  // Handle the approval of deals
   const handleApprove = (deals_id) => {
     
     axios.post(`${baseUrl}/deal/approve`, {id: deals_id}, {
       headers: {
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': "*",
       'crossorigin': true,
       'crossdomain': true,
       'Authorization': `Bearer ${adminToken}`,
@@ -113,27 +115,22 @@ export default function Deals() {
       })
   }
 
+  //Handles Decline Button
   const handleDecline = (deals_id) => {
     setDecline(true)
-    setCommentObj({'id': `${deals_id}`})
-    console.log('lol' + commentObj.id)
-
-    // setCommentObj({...commentObj}, {
-    //   id: 23
-    //   // reason: 'mad o' 
-    // })
+    setDealid(deals_id)
   }
 
+  //Handles decline request and submission of comment and merchants
   const submitDeclineReason = e => {
     e.preventDefault()
+    console.log(dealid + comment)
 
-    // setCommentObj({...commentObj}, {
-    //   id: 23,
-    //   reason: 'mad o' 
-    // })
-
-    axios.post('/deal/decline', commentObj, {
+    axios.post(`${baseUrl}/deal/decline`, {id: dealid, reason: comment}, {
       headers: {
+        'Access-Control-Allow-Origin': "*",
+        'crossorigin': true,
+        'crossdomain': true,
         'Authorization': `Bearer ${adminToken}`,
         'client-id': 'staging_zHHPqPn.Gp2ZSTkRM81Sksp3Ig0~d1F8..b3dWN3XtTRZS8MYMy28poWD7v6UKQsFptXN15MtxHw9uL59LCfaGVy5LFPFu.j9qnP',
         'client_secret': 'e3B3cDyU-KjI7hL90Bw82rbRuosbSbDv_mEKbdeqde2xW9lOcRWEO7lpMv0VH22RNg3E~7qKJMlMc.WwF9AQLtKYvHu9hy0t7v~T'
@@ -141,7 +138,7 @@ export default function Deals() {
     })
     .then(response => {
       if(response.data){
-        alert ("Deal has already been Declined")
+        alert ("Checking ... " + dealid + " " + response.data.data)
       }
       setDecline(false)
     })
@@ -302,10 +299,10 @@ export default function Deals() {
             onSubmit={submitDeclineReason}
             >
               <input
-              onChange={(e) => setCommentObj({...commentObj, 'reason': e.target.value})}
+              onChange={(e) => setComment(e.target.value)}
               type="text" 
               name="comment" 
-              value={commentObj.reason} 
+              value={comment}
               placeholder="Your Comment here" 
               /><br />
               <button type="submit">Send Comment</button>

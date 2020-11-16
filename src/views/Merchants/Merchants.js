@@ -98,7 +98,9 @@ export default function Merchants() {
      }
       )
       .then(response => {
+        setMerchants(response.data.data)
         setTotalMerchants(response.data.recordsFiltered)
+        console.log(response.data.data)
       })
       .catch(error => {
         console.log(error)
@@ -325,9 +327,7 @@ export default function Merchants() {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["Merchant ID", "Name", "Location", "Deals Created", "Deals Claimed", "Deals Expired", "Action"]}
-                tableData={[
-                  {id: 1, title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "Dakota Rice", dealer: "$36,738", manor: "Niger"}
-                ]}
+                tableData={merchants}
               />
             </CardBody>
           </Card>
