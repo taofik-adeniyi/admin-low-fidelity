@@ -4,8 +4,28 @@
         width: 560px;
         height: 100%;
         position: fixed;
-        background-color: blue !important;
+        background-color: rebeccapurple !important;
     }
+}
+@media (min-width: 960px) {
+    .jss6 {
+        width: 260px;
+        height: 100%;
+        position: fixed;
+        background-color: rebeccapurple !important;
+    }
+}
+.makeStyles-drawerPaper-6 {
+    width: 560px;
+    height: 100%;
+    position: fixed;
+    background-color: blue !important;
+}
+.jss6 {
+    width: 260px;
+    height: 100%;
+    position: fixed;
+    background-color: rebeccapurple;
 }
 .brandii {
     /* padding: 20px 0 20px auto; */
