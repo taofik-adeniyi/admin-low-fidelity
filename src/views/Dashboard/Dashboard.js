@@ -1,6 +1,5 @@
 import React, { useState, useEffect, adminId} from "react";
 import axios from "axios";
-import {adminToken, clientId, clientSecret, baseUrl} from "../../enviroment"
 
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
@@ -52,14 +51,14 @@ export default function Dashboard() {
   const [noOfMerchants, setNoOfMerchants] = useState()
 
   useEffect(() => {
-    axios.get(`${baseUrl}/deal`, {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/deal`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         'crossorigin': true,
         'crossdomain': true,
-        'Authorization': `Bearer ${adminToken}`,
-        'client-id': clientId,
-        'client_secret': clientSecret
+        'Authorization': `Bearer ${process.env.REACT_APP_ADMIN_TOKEN}`,
+        'client-id': `${process.env.REACT_APP_CLIENT_ID}`,
+        'client_secret': `${process.env.REACT_APP_CLIENT_SECRET}`
       }
     })
       .then(res => {
@@ -74,12 +73,12 @@ export default function Dashboard() {
   }, [])
 
   useEffect(() => {
-    axios.get(`${baseUrl}/merchants`, {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/merchants`, {
        headers: {
         "Access-Control-Allow-Origin": "*",
-        'Authorization': `Bearer ${adminToken}`,
-        'client-id': clientId,
-        'client_secret': clientSecret
+        'Authorization': `Bearer ${process.env.REACT_APP_ADMIN_TOKEN}`,
+        'client-id': `${process.env.REACT_APP_CLIENT_ID}`,
+        'client_secret': `${process.env.REACT_APP_CLIENT_SECRET}`
         }
      }
       )
@@ -101,42 +100,17 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Spotters</p>
-              <h3 className={classes.cardTitle}>
-                2500 
-              </h3>
-            </CardHeader>
-            <CardFooter stats>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="success" stats icon>
-              <CardIcon color="success">
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
                 <Store />
               </CardIcon>
-              <p className={classes.cardCategory}>No of Merchants</p>
-              <h3 className={classes.cardTitle}>{loading? '... loading ....' : noOfMerchants}</h3>
+              <p className={classes.cardCategory}>No of Available Spotters</p>
+              <h4 className={classes.cardTitle}>
+                2500 
+              </h4>
             </CardHeader>
-            <CardFooter stats>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <Icon>info_outline</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>No of Malls</p>
-              <h3 className={classes.cardTitle}>25</h3>
-            </CardHeader>
-            <CardFooter stats>
+            <CardFooter stats style={{color: 'gray'}}>
+              Lorem ipsum dolor sit contectur
             </CardFooter>
           </Card>
         </GridItem>
@@ -144,42 +118,82 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Accessibility />
+                <Store />
+              </CardIcon>
+              <p className={classes.cardCategory}>No of Merchants Available</p>
+              <h4 className={classes.cardTitle}>8715
+                {/* {loading? '... loading ....' : noOfMerchants} */}
+              </h4>
+            </CardHeader>
+            <CardFooter stats style={{color: 'gray'}}>
+              Lorem ipsum dolor sit contectur
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Store />
+              </CardIcon>
+              <p className={classes.cardCategory}>No of Available Malls</p>
+              <h4 className={classes.cardTitle}>2512</h4>
+            </CardHeader>
+            <CardFooter stats style={{color: 'gray'}}>
+                Lorem ipsum dolor sit contectur
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Store />
               </CardIcon>
               <p className={classes.cardCategory}>No of Created Deals</p>
-              <h3 className={classes.cardTitle}>{loading ? '..loading deals Num' : dealsNo}</h3>
+              <h4 className={classes.cardTitle}>
+                {/* {loading ? '..loading deals Num' : dealsNo} */}
+                4763
+              </h4>
             </CardHeader>
-            <CardFooter stats>
+            <CardFooter stats style={{color: 'gray'}}>
+              Lorem ipsum dolor sit contectur
             </CardFooter>
           </Card>
         </GridItem>
       </GridContainer>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{marginTop: 70, marginBottom: 70}}>
           <Grid item xs={12} sm={12} md={3}>
             <h5>Activities</h5>
-            <Card>
+            <Card style={{marginBottom: 70}}>
               <CardHeader color="info" stats icon>
                 <CardIcon color="info">
-                  <Accessibility />
+                  <Store />
                 </CardIcon>
                 <p className={classes.cardCategory}>No of Pinned Deals</p>
-                <h3 className={classes.cardTitle}>3000</h3>
+                <h4 className={classes.cardTitle}>3000</h4>
               </CardHeader>
+              <CardFooter stats style={{color: 'gray'}}>
+              Lorem ipsum dolor sit contectur
+            </CardFooter>
             </Card>
             <Card>
               <CardHeader color="info" stats icon>
                 <CardIcon color="info">
-                  <Accessibility />
+                  <Store />
                 </CardIcon>
                 <p className={classes.cardCategory}>No of Claimed Deals</p>
-                <h3 className={classes.cardTitle}>3500</h3>
+                <h4 className={classes.cardTitle}>3500</h4>
               </CardHeader>
+              <CardFooter stats style={{color: 'gray'}}>
+              Lorem ipsum dolor sit contectur
+            </CardFooter>
             </Card>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
             <h5>Transactions</h5>
             <Card chart>
-            <CardHeader color="success">
+            <CardHeader color="info">
               <ChartistGraph
                 className="ct-chart"
                 data={dailySalesChart.data}
@@ -197,6 +211,7 @@ export default function Dashboard() {
                 increase in today sales.
               </p>
             </CardBody>
+            <div style={{height: 90}}></div>
           </Card>
           </Grid>
         </Grid>
@@ -204,15 +219,12 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="warning">
+            <CardHeader color="info">
               <h4 className={classes.cardTitleWhite}>Recent Activities</h4>
-              {/* <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p> */}
             </CardHeader>
             <CardBody>
               <Table
-                tableHeaderColor="warning"
+                tableHeaderColor="info"
                 tableHead={["Deal No", "Date", "Merchant", "Deal Description", "Comment"]}
                 tableData={[
                   {id: 1, title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "Llovely services"},

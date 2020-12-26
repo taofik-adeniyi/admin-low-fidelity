@@ -47,54 +47,60 @@ export default function Transactions() {
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
             <Card>
-              <CardHeader color="warning" stats>
-                <h4 className={classes.cardCategory}>Successful</h4>
+              <CardHeader color="info" stats>
+                <h4 className={classes.cardCategory}>Successful Transactions</h4>
                 <h3 className={classes.cardTitle}>
                   2500 
                 </h3>
               </CardHeader>
-              <CardFooter stats />
+              <CardFooter stats>
+                Lorem ipsum dolor sit contectur
+              </CardFooter>
             </Card>
           </GridItem>
           
           <GridItem xs={12} sm={6} md={3}>
             <Card>
-              <CardHeader color="warning" stats>
-                <h4 className={classes.cardCategory}>Pending</h4>
+              <CardHeader color="info" stats>
+                <h4 className={classes.cardCategory}>Pending Transactions</h4>
                 <h3 className={classes.cardTitle}>
                   500 
                 </h3>
               </CardHeader>
-              <CardFooter stats />
+              <CardFooter stats>
+                Lorem ipsum dolor sit contectur
+              </CardFooter>
             </Card>
           </GridItem>
           
           <GridItem xs={12} sm={6} md={3}>
             <Card>
-              <CardHeader color="warning" stats>
-                <h4 className={classes.cardCategory}>Failed</h4>
+              <CardHeader color="info" stats>
+                <h4 className={classes.cardCategory}>Failed Transactions</h4>
                 <h3 className={classes.cardTitle}>
                   250 
                 </h3>
               </CardHeader>
-              <CardFooter stats />
+              <CardFooter stats>
+                Lorem ipsum dolor sit contectur
+              </CardFooter>
             </Card>
           </GridItem>
       </GridContainer>
       <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="warning">
+            <CardHeader color="info">
               <h4 className={classes.cardTitleWhite}>Transactions History</h4>
             </CardHeader>
             <CardBody>
               <Table
-                tableHeaderColor="warning"
+                tableHeaderColor="info"
                 tableHead={["Order Code", "Item", "Description", "Pinned Amount", "Balance", "Expiry Date", "Action"]}
                 tableData={[
-                  {id: "1", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", action: true},
-                  {id: "2", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", action: true},
-                  {id: "3", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", action: true}
+                  {id: "1", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", history: true},
+                  {id: "2", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", history: true},
+                  {id: "3", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", history: true}
                 ]}
               />
             </CardBody>

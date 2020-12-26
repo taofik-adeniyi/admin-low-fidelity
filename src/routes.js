@@ -11,6 +11,7 @@ import DashboardPage from "views/Dashboard/Dashboard.js";
 import Transactions from "views/Transactions/Transactions.js";
 import Deals from "views/Deals/Deals.js";
 import Merchants from "views/Merchants/Merchants.js";
+import Signin from "./views/Signin/SignIn";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
@@ -27,6 +28,14 @@ const dashboardRoutes = [
     component: DashboardPage,
     layout: "/admin"
   },
+  // {
+  //   path: "/signin",
+  //   name: "Signin",
+  //   rtlName: "لوحة القيادة",
+  //   icon: Dashboard,
+  //   component: DashboardPage,
+  //   layout: "/admin"
+  // },
   {
     path: "/transactions",
     name: "Transactions",

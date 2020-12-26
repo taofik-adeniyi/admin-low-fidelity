@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import {adminToken, clientId, clientSecret, adminId, baseUrl} from "../../enviroment"
-
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -85,15 +83,15 @@ export default function Merchants() {
   const [totalmerchants, setTotalMerchants] = useState()
 
   useEffect(() => {
-    axios.get(`${baseUrl}/merchants`,
+    axios.get(`${process.env.REACT_APP_BASE_URL}/merchants`,
      {
        headers: {
         "Access-Control-Allow-Origin": "*",
         'crossorigin': true,
         'crossdomain': true,
-        'Authorization': `Bearer ${adminToken}`,
-        'client-id': clientId,
-        'client_secret': clientSecret
+        'Authorization': `Bearer ${process.env.REACT_APP_ADMIN_TOKEN}`,
+        'client-id': `${process.env.REACT_APP_CLIENT_ID}`,
+        'client_secret': `${process.env.REACT_APP_CLIENT_SECRET}`
         }
      }
       )
@@ -138,14 +136,14 @@ export default function Merchants() {
     e.preventDefault()
     if (formValues.label != "" && formValues.image != ""){
       // alert("submitted succesfully")
-      axios.post(`${baseUrl}/mall`, formValues, {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/mall`, formValues, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'crossorigin': true,
           'crossdomain': true,
-          'Authorization': `Bearer ${adminToken}`,
-          'client-id': clientId,
-          'client_secret': clientSecret
+          'Authorization': `Bearer ${process.env.REACT_APP_ADMIN_TOKEN}`,
+          'client-id': `${process.env.REACT_APP_CLIENT_ID}`,
+          'client_secret': `${process.env.REACT_APP_CLIENT_SECRET}`
         }
       })
       .then(response => {
@@ -172,56 +170,59 @@ export default function Merchants() {
     <GridContainer>
       <GridItem xs={12} sm={6} md={3}>
         <Card>
-          <CardHeader color="warning" stats>
+          <CardHeader color="info" stats>
             <h4 className={classes.cardCategory}>Total Merchants</h4>
             <h3 className={classes.cardTitle}>
-              {totalmerchants}
+              {totalmerchants} 98,345
             </h3>
           </CardHeader>
-          <CardFooter stats />
+          <CardFooter stats >Total onboarded Merchants</CardFooter>
         </Card>
       </GridItem>
           
       <GridItem xs={12} sm={6} md={3}>
         <Card>
-          <CardHeader color="warning" stats>
+          <CardHeader color="info" stats>
             <h4 className={classes.cardCategory}>Active Merchants</h4>
             <h3 className={classes.cardTitle}>
-              500 
+              50,710
             </h3>
           </CardHeader>
-          <CardFooter stats />
+          <CardFooter stats >Total active Merchants</CardFooter>
+
         </Card>
       </GridItem>
           
       <GridItem xs={12} sm={6} md={3}>
         <Card>
-          <CardHeader color="warning" stats>
+          <CardHeader color="info" stats>
             <h4 className={classes.cardCategory}>Inactive Merchants</h4>
             <h3 className={classes.cardTitle}>
-              25 
+              2,500,382 
             </h3>
           </CardHeader>
-          <CardFooter stats />
+          <CardFooter stats >Total in-active Merchants</CardFooter>
+        </Card>
+      </GridItem>
+
+      <GridItem xs={12} sm={6} md={3}>
+        <Card>
+          <CardHeader color="info" stats>
+            <h4 className={classes.cardCategory}>Merchants with Issues</h4>
+            <h3 className={classes.cardTitle}>
+              2,523 
+            </h3>
+          </CardHeader>
+          <CardFooter stats >List of Merchants with issues</CardFooter>
         </Card>
       </GridItem>
     </GridContainer>
-    <div style={{marginBottom: "5px", marginLeft: "80%"}}>
-      <p>Filter By Option</p>
-      <form>
-        <select style={{padding: '6px'}}>
-          <option disabled value="">Pick Option</option>
-          <option value="PENDING">Option 1</option>
-          <option value="APPROVED">Option 2</option>
-          <option value="DECLINED">Option 3</option>
-        </select>
-      </form>
-    </div>
-    <Grid container spacing={3}>
+    
+    <Grid container spacing={3} style={{marginTop: 70, marginBottom: 70}}>
       <Grid item xs={12} sm={12} md={4}>
         <h5>Merchant % Drop off</h5>
         <Card chart>
-        <CardHeader color="success">
+        <CardHeader color="info">
           <ChartistGraph
             className="ct-chart"
             data={dailySalesChart.data}
@@ -235,7 +236,7 @@ export default function Merchants() {
             <span className={classes.successText}>
               <ArrowUpward className={classes.upArrowCardCategory} /> 9%
             </span>{" "}
-            Drop Off
+            Drop off
           </p>
         </CardBody>
       </Card>
@@ -243,7 +244,7 @@ export default function Merchants() {
       <Grid item xs={12} sm={12} md={4}>
         <h5>Total Revenue</h5>
         <Card chart>
-        <CardHeader color="success">
+        <CardHeader color="info">
           <ChartistGraph
             className="ct-chart"
             data={dailySalesChart.data}
@@ -255,16 +256,16 @@ export default function Merchants() {
         <CardBody>
           <p className={classes.cardCategory}>
             <span className={classes.successText}>
-              <ArrowUpward className={classes.upArrowCardCategory} /> $50,000
+              <ArrowUpward className={classes.upArrowCardCategory} /> 2%
             </span>{" "}
-            {/* Drop Off */}
+            Drop off
           </p>
         </CardBody>
       </Card>
       </Grid><Grid item xs={12} sm={12} md={4}>
         <h5>Total Deals</h5>
         <Card chart>
-        <CardHeader color="success">
+        <CardHeader color="info">
           <ChartistGraph
             className="ct-chart"
             data={dailySalesChart.data}
@@ -276,14 +277,37 @@ export default function Merchants() {
         <CardBody>
           <p className={classes.cardCategory}>
             <span className={classes.successText}>
-              <ArrowUpward className={classes.upArrowCardCategory} /> 10,000 Deals
+              <ArrowUpward className={classes.upArrowCardCategory} /> 0.5%
             </span>{" "}
+            Drop off
           </p>
         </CardBody>
       </Card>
       </Grid>
     </Grid>
 
+    <Grid container spacing={3}>
+    <Grid item xs={12} sm={12} md={3}>
+    </Grid>
+    <Grid item xs={12} sm={12} md={3}>
+    </Grid>
+    <Grid item xs={12} sm={12} md={3}>
+    </Grid>
+    <Grid item xs={12} sm={12} md={3}>
+      <div style={{display: 'flex', justifyContent: 'flex-end', flexDirection: 'column'}}>
+        <p>Filter By Option</p>
+        <form>
+          <select>
+            <option disabled value="">Pick Option</option>
+            <option value="PENDING">Option 1</option>
+            <option value="APPROVED">Option 2</option>
+            <option value="DECLINED">Option 3</option>
+          </select>
+        </form>
+      </div>
+    </Grid>
+    
+    </Grid>
     <Grid container spacing={3}>
           <Grid item xs={12} sm={12} md={3}>
             <h5>Create Mall</h5>
@@ -301,14 +325,32 @@ export default function Merchants() {
                 <TextField
                   required
                   id="standard-required"
-                  label="Image"
+                  label="Descriptions"
+                  type="text"
+                  placeholder="Image"
+                  value={formValues.image}
+                  onChange={handleChangeForm('image')}
+                />
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Images"
+                  type="text"
+                  placeholder="Image"
+                  value={formValues.image}
+                  onChange={handleChangeForm('image')}
+                />
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Images"
                   type="text"
                   placeholder="Image"
                   value={formValues.image}
                   onChange={handleChangeForm('image')}
                 />
                 <div style={{marginLeft: "30%", marginTop: "10px", marginBottom: "10px"}}>
-                  <Button type="submit" variant="contained" color="primary">
+                  <Button type="submit" variant="contained" color="info">
                     Submit
                   </Button>
                 </div>
@@ -320,14 +362,19 @@ export default function Merchants() {
             <h5 style={{marginLeft: "75%"}}>Create Merchant</h5>
           <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="warning">
+            <CardHeader color="info">
               <h4 className={classes.cardTitleWhite}>Recent Activities</h4>
             </CardHeader>
             <CardBody>
               <Table
-                tableHeaderColor="warning"
+                tableHeaderColor="info"
                 tableHead={["Merchant ID", "Name", "Location", "Deals Created", "Deals Claimed", "Deals Expired", "Action"]}
-                tableData={merchants}
+                // tableData={merchants}
+                tableData={[
+                  {id: "1", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", action: true},
+                  {id: "2", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", action: true},
+                  {id: "3", title: "Dakota Rice", merchantName: "$36,738", state: "Niger", description: "$36,738", dealer: "Niger", action: true}
+                ]}
               />
             </CardBody>
           </Card>

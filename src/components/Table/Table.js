@@ -67,11 +67,25 @@ export default function CustomTable(props) {
                     
                     {!prop.action ? null : 
                       <TableCell className={classes.tableCell} key={key}>
-                        <AButton variant="contained" color="primary" style={{marginTop: "5px"}}>
+                        <AButton 
+                        // variant="contained" 
+                        color="info" style={{marginTop: "5px"}}>
                           View
                         </AButton>
-                        <AButton color="primary" variant="contained" style={{marginTop: "5px", marginLeft: "5px"}}>
+                        <AButton color="info" 
+                        // variant="contained" 
+                        style={{marginTop: "5px", marginLeft: "5px"}}>
                           Remove
+                        </AButton>
+                      </TableCell>
+                    }
+
+                    {!prop.history ? null : 
+                      <TableCell className={classes.tableCell} key={key}>
+                        <AButton 
+                        // variant="contained" 
+                        color="info" style={{marginTop: "5px"}}>
+                          View
                         </AButton>
                       </TableCell>
                     }

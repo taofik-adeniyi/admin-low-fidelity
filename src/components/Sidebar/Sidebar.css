@@ -1,0 +1,31 @@
+@media (min-width: 960px) {
+    
+    .makeStyles-drawerPaper-6 {
+        width: 560px;
+        height: 100%;
+        position: fixed;
+        background-color: blue !important;
+    }
+}
+.brandii {
+    /* padding: 20px 0 20px auto; */
+    margin: 20px auto;
+    /* text-align: center; */
+    color: red;
+}
+
+/* @media (min-width: 960px) {
+    .MuiPaper-root.MuiDrawer-paper.makeStyles-drawerPaper-6.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.MuiPaper-elevation0 {}
+} */
+
+
+.makeStyles-drawerPaper-6 {
+    top: 0;
+    left: 0;
+    width: 260px;
+    border: none;
+    bottom: 0;
+    z-index: 1;
+    position: fixed;
+    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
